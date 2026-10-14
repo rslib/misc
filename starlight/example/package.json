@@ -1,0 +1,16 @@
+{
+  "name": "rslib-docs-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.6",
+    "astro": "^7.3.8",
+    "sharp": "^0.35.5",
+    "starlight-theme-rslib": "file:.."
+  }
+}

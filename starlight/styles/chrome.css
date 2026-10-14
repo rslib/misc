@@ -1,0 +1,119 @@
+@layer rslib {
+  header.header {
+    border-bottom: 1px solid var(--rs-rule);
+    backdrop-filter: saturate(1.2);
+  }
+
+  site-search button[data-open-modal] {
+    border: 1px solid var(--rs-rule);
+    border-radius: var(--rs-radius);
+    background-color: var(--sl-color-gray-6);
+    font-family: var(--sl-font-mono);
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  site-search button[data-open-modal]:hover {
+    border-color: var(--sl-color-gray-4);
+    color: var(--sl-color-gray-1);
+  }
+
+  site-search button[data-open-modal] kbd {
+    font-family: var(--sl-font-mono);
+    background-color: transparent;
+  }
+
+  .sidebar-pane {
+    border-inline-end: 1px solid var(--rs-rule);
+  }
+
+  .sidebar-content summary .large {
+    font-family: var(--rs-font-display);
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--sl-color-gray-3);
+  }
+
+  .sidebar-content a.large {
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+  }
+
+  .sidebar-content a {
+    position: relative;
+    padding-inline-start: 1rem;
+    font-size: 0.9375rem;
+    color: var(--sl-color-gray-2);
+    border-radius: 0;
+  }
+
+  .sidebar-content a:hover {
+    color: var(--sl-color-white);
+  }
+
+  /* The current page reads like `git branch`: a star in the gutter, no pill. */
+  .sidebar-content a[aria-current='page'],
+  .sidebar-content a[aria-current='page']:hover,
+  .sidebar-content a[aria-current='page']:focus {
+    color: var(--sl-color-white);
+    background-color: transparent;
+    font-weight: 600;
+  }
+
+  .sidebar-content a[aria-current='page']::before {
+    content: '*';
+    position: absolute;
+    inset-inline-start: 0.0625rem;
+    font-family: var(--sl-font-mono);
+    font-weight: 600;
+    color: var(--sl-color-accent);
+  }
+
+  .sidebar-content ul ul li {
+    border-inline-start-color: var(--rs-rule);
+  }
+
+  .right-sidebar {
+    border-inline-start: 1px solid var(--rs-rule);
+  }
+
+  .right-sidebar-panel h2 {
+    font-family: var(--rs-font-display);
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    color: var(--sl-color-gray-3);
+  }
+
+  .pagination-links a {
+    border: 1px solid var(--rs-rule);
+    border-radius: var(--rs-radius);
+    box-shadow: none;
+  }
+
+  .pagination-links a:hover {
+    border-color: var(--sl-color-accent);
+  }
+
+  .pagination-links .link-title {
+    font-family: var(--rs-font-display);
+    font-size: var(--sl-text-base);
+    font-weight: 600;
+  }
+
+  footer .meta,
+  footer .kudos {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+}
+
+@layer rslib {
+  .sl-menu-button {
+    border: 1px solid var(--rs-rule);
+    border-radius: var(--rs-radius);
+    background-color: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    box-shadow: none;
+  }
+}

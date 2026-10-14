@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>starlight-theme-rslib preview</title>
+<style>
+  @font-face { font-family: 'Atkinson Hyperlegible Next'; font-weight: 200 800; font-display: swap;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/atkinson-hyperlegible-next:vf@latest/latin-wght-normal.woff2) format('woff2'); }
+  @font-face { font-family: 'Bricolage Grotesque'; font-weight: 200 800; font-display: swap;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/bricolage-grotesque:vf@latest/latin-opsz-normal.woff2) format('woff2'); }
+  @font-face { font-family: 'Monaspace Neon'; font-weight: 400; font-display: swap;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/monaspace-neon@latest/latin-400-normal.woff2) format('woff2'); }
+  @font-face { font-family: 'Monaspace Neon'; font-weight: 600; font-display: swap;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/monaspace-neon@latest/latin-600-normal.woff2) format('woff2'); }
+
+  :root {
+    --display: 'Bricolage Grotesque', -apple-system, 'Segoe UI', sans-serif;
+    --body: 'Atkinson Hyperlegible Next', -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'Monaspace Neon', ui-monospace, Menlo, monospace;
+  }
+
+  /* Same token values as styles/tokens.css. */
+  .dark {
+    --bg: #15212a; --white: #e8f0ee; --g1: #cfdad8; --g2: #adbcbc; --g3: #81949a; --g4: #576b72;
+    --g5: #2f414b; --g6: #1d2c35; --rule: #24343e; --accent: #5fc2b0;
+    --brass: #e3b341; --oxide: #e8875f; --iris: #c4a7e7; --green: #8fcf8a;
+    --code-bg: #111b23; --code-bar: #18252e;
+    --c-kw: #3e8fb0; --c-str: #f6c177; --c-com: #6e6a86; --c-fn: #ea9a97;
+  }
+  .light {
+    --bg: #f7f9f7; --white: #13212a; --g1: #23333d; --g2: #3b4c56; --g3: #5a6b72; --g4: #8a999d;
+    --g5: #c7d1d0; --g6: #e2e8e6; --rule: #dde4e2; --accent: #1c7468;
+    --brass: #8a6208; --oxide: #a8431c; --iris: #6e5594; --green: #2f7a35;
+    --code-bg: #eef2f0; --code-bar: #e4eae8;
+    --c-kw: #286983; --c-str: #ea9d34; --c-com: #9893a5; --c-fn: #d7827e;
+  }
+
+  * { box-sizing: border-box; }
+  html { font-optical-sizing: auto; }
+  body { margin: 0; background: #0f181f; color: #cfdad8; font-family: var(--body); font-size: 17px; line-height: 1.7; }
+  .board { max-width: 1480px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  .board > header { max-width: 44rem; margin-bottom: 2.5rem; }
+  .board h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.5rem);
+    line-height: 1; letter-spacing: -0.028em; color: #e8f0ee; margin: 0 0 0.75rem; }
+  .board > header p { margin: 0; color: #adbcbc; font-size: 1.125rem; }
+  .board h2.part { font-family: var(--display); font-weight: 600; font-size: 1.5rem; letter-spacing: -0.02em;
+    color: #e8f0ee; margin: 4rem 0 1rem; }
+  .board .note { color: #81949a; font-size: 0.9375rem; max-width: 44rem; margin: -0.5rem 0 1.25rem; }
+
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 1100px) { .pair { grid-template-columns: 1fr; } }
+
+  /* A mock docs page. */
+  .page { background: var(--bg); color: var(--g1); border: 1px solid #24343e; border-radius: 0.5rem; overflow: hidden; font-size: 15px; }
+  .bar { display: flex; align-items: center; gap: 1.25rem; height: 3.25rem; padding: 0 1.25rem; border-bottom: 1px solid var(--rule); }
+  .title { font-family: var(--display); font-weight: 600; font-size: 1rem; color: var(--white); white-space: nowrap; }
+  .title .org { font-weight: 400; color: var(--g3); }
+  .title .sep { color: var(--accent); padding: 0 0.1em; }
+  .search { flex: 1; max-width: 15rem; height: 2.125rem; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 0.75rem; border: 1px solid var(--rule); border-radius: 0.375rem; background: var(--g6);
+    font-family: var(--mono); font-size: 0.75rem; color: var(--g3); }
+  .frame { display: grid; grid-template-columns: 11.5rem 1fr 9.5rem; min-height: 34rem; }
+  @media (max-width: 760px) { .frame { grid-template-columns: 1fr; } .side, .toc { display: none; } }
+
+  .side { border-right: 1px solid var(--rule); padding: 1.25rem 0.75rem; font-size: 0.875rem; line-height: 1.4; }
+  .side .group { font-family: var(--display); font-weight: 500; font-size: 0.75rem; color: var(--g3); margin: 0 0 0.4rem 0.25rem; }
+  .side ul { list-style: none; margin: 0 0 1.25rem; padding: 0 0 0 0.5rem; border-left: 1px solid var(--rule); }
+  .side li { position: relative; padding: 0.3rem 0 0.3rem 1rem; color: var(--g2); }
+  .side li[aria-current] { color: var(--white); font-weight: 600; }
+  .side li[aria-current]::before { content: '*'; position: absolute; left: 0.1rem; font-family: var(--mono); color: var(--accent); }
+
+  .main { padding: 1.75rem 1.75rem 2.5rem; min-width: 0; }
+  .main h3.pt { font-family: var(--display); font-weight: 600; font-size: 2rem; line-height: 1.15; letter-spacing: -0.025em;
+    color: var(--white); margin: 0 0 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); }
+  .lane { position: relative; padding-left: 1.5rem; }
+  .lane::before { content: ''; position: absolute; top: 0.5rem; bottom: 0; left: 0.3125rem; border-left: 1px solid var(--g5); }
+  .lane p { margin: 0 0 0.9rem; }
+  .lane h4, .lane h5 { position: relative; font-family: var(--display); color: var(--white); letter-spacing: -0.02em; line-height: 1.25; }
+  .lane h4 { font-weight: 600; font-size: 1.375rem; margin: 1.75rem 0 0.75rem; }
+  .lane h5 { font-weight: 600; font-size: 1.125rem; margin: 1.25rem 0 0.5rem; }
+  .lane h4::before, .lane h5::before { content: ''; position: absolute; border-radius: 50%; box-sizing: border-box; transition: background-color .2s, border-color .2s; }
+  .lane h4::before { width: 0.6875rem; height: 0.6875rem; left: calc(0.3125rem + 0.5px - 0.34375rem - 1.5rem); top: calc((1.25em - 0.6875rem) / 2);
+    border: 1.5px solid var(--g3); background: var(--bg); }
+  .lane h5::before { width: 0.4375rem; height: 0.4375rem; left: calc(0.3125rem + 0.5px - 0.21875rem - 1.5rem); top: calc((1.25em - 0.4375rem) / 2);
+    background: var(--g3); }
+  .lane h4:hover::before, .lane h5:hover::before { background: var(--accent); border-color: var(--accent); }
+
+  code { font-family: var(--mono); font-size: 0.86em; padding: 0.1em 0.35em; border-radius: 0.25rem; background: var(--g6); color: var(--white); }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  pre { margin: 0 0 1rem; border: 1px solid var(--rule); border-radius: 0.375rem; background: var(--code-bg); overflow: auto; }
+  pre .tab { display: block; padding: 0.4rem 0.9rem; background: var(--code-bar); border-bottom: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 0.75rem; color: var(--g3); }
+  pre code { display: block; background: none; padding: 0.75rem 0.9rem; font-size: 0.8125rem; line-height: 1.6; color: var(--g1); }
+  .k { color: var(--c-kw); } .s { color: var(--c-str); } .c { color: var(--c-com); font-style: italic; } .f { color: var(--c-fn); }
+  .ins, .del { display: block; margin: 0 -0.9rem; padding: 0 0.9rem; border-left: 2px solid; }
+  .ins { background: color-mix(in oklab, var(--green) 14%, transparent); border-color: var(--green); }
+  .del { background: color-mix(in oklab, var(--oxide) 14%, transparent); border-color: var(--oxide); }
+
+  .aside { margin: 0 0 1rem; padding: 0.75rem 1rem; border-left: 2px solid var(--brass); border-radius: 0 0.375rem 0.375rem 0;
+    background: color-mix(in oklab, var(--brass) 7%, transparent); }
+  .aside b { display: block; font-family: var(--display); font-size: 0.8125rem; font-weight: 600; color: var(--brass); }
+
+  .toc { border-left: 1px solid var(--rule); padding: 1.25rem 0.75rem; font-size: 0.8125rem; line-height: 1.25; }
+  .toc .head { font-family: var(--display); font-weight: 500; font-size: 0.75rem; color: var(--g3); margin-bottom: 0.6rem; }
+  .toc ul { list-style: none; margin: 0 0 0 0.3125rem; padding: 0; border-left: 1px solid var(--g5); }
+  .toc li { position: relative; padding: 0.3rem 0 0.3rem 0.875rem; color: var(--g3); }
+  .toc li.sub { padding-left: 1.625rem; }
+  .toc li[aria-current] { color: var(--white); }
+  .toc li[aria-current]::before { content: ''; position: absolute; left: calc(-0.25rem - 0.5px); top: calc(0.3rem + (1.25em - 0.5rem) / 2);
+    width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent); }
+
+  /* Palette and type. */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 1rem; }
+  .sw { border: 1px solid #24343e; border-radius: 0.5rem; overflow: hidden; background: #15212a; }
+  .sw .chips { display: grid; grid-template-columns: 1fr 1fr; height: 4.5rem; }
+  .sw .meta { padding: 0.75rem 0.9rem; font-size: 0.875rem; line-height: 1.45; }
+  .sw .meta b { display: block; font-family: var(--display); font-weight: 500; color: #e8f0ee; }
+  .sw .meta span { font-family: var(--mono); font-size: 0.75rem; color: #81949a; }
+  .type { display: grid; gap: 1px; background: #24343e; border: 1px solid #24343e; border-radius: 0.5rem; overflow: hidden; }
+  .type > div { display: grid; grid-template-columns: 12rem 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 1.25rem; background: #15212a; }
+  @media (max-width: 760px) { .type > div { grid-template-columns: 1fr; gap: 0.5rem; } }
+  .type .role { font-size: 0.875rem; color: #81949a; line-height: 1.4; }
+  .type .role b { display: block; color: #cfdad8; font-weight: 600; }
+  .type .x1 { font-family: var(--display); font-weight: 600; font-size: 2.5rem; line-height: 1.1; letter-spacing: -0.03em; color: #e8f0ee; }
+  .type .x2 { font-family: var(--body); font-size: 1.0625rem; color: #cfdad8; max-width: 38rem; }
+  .type .x3 { font-family: var(--mono); font-size: 0.875rem; color: #cfdad8; }
+  .rules { max-width: 44rem; padding-left: 1.25rem; color: #adbcbc; }
+  .rules li { margin-bottom: 0.35rem; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="board">
+  <header>
+    <h1>starlight-theme-rslib</h1>
+    <p>The Starlight theme for rslib project docs. This page shows the theme on a sample rgit page, in dark and light. Hover a heading to light its node on the lane.</p>
+  </header>
+
+  <h2 class="part">The page</h2>
+  <p class="note">The lane on the left of the text works like <code style="--g6:#1d2c35;--white:#e8f0ee">git log --graph</code>. The list on the right uses the same line and fills the dot for the part you are reading.</p>
+
+  <div class="pair">
+  <!-- The same page is drawn twice; only the theme class changes. -->
+  <template id="mock">
+    <div class="bar">
+      <span class="title"><span class="org">rslib</span><span class="sep">/</span>rgit</span>
+      <span class="search"><span>Search</span><span>⌘K</span></span>
+    </div>
+    <div class="frame">
+      <nav class="side" aria-label="Sample sidebar">
+        <div class="group">Start</div>
+        <ul><li>Install rgit</li></ul>
+        <div class="group">Guides</div>
+        <ul><li aria-current="page">Use rgit from an agent</li><li>Add Change-Id trailers</li></ul>
+        <div class="group">Reference</div>
+        <ul><li>Output modes</li></ul>
+      </nav>
+      <div class="main">
+        <h3 class="pt">Use rgit from an agent</h3>
+        <div class="lane">
+          <p>rgit is built to be driven by coding agents through the shell. Under an agent, it prints TOON by default.</p>
+          <h4>Install into your agent apps</h4>
+          <pre><span class="tab">Terminal</span><code><span class="f">rgit</span> agent install           <span class="c"># every app found</span>
+<span class="f">rgit</span> agent install claude pi <span class="c"># just these</span>
+<span class="f">rgit</span> agent status            <span class="c"># what each app has</span></code></pre>
+          <h5>Session hook</h5>
+          <p>The hook runs <code>rgit hook session-start</code> when a session starts.</p>
+          <div class="aside"><b>Caution</b>rgit edits plain JSON only. It stops when a config file has comments.</div>
+          <h4>Change the theme</h4>
+          <pre><span class="tab">config.toml</span><code><span class="k">[theme]</span>
+<span class="del">name = <span class="s">"rust"</span></span><span class="ins">name = <span class="s">"rose-pine"</span></span></code></pre>
+          <p>Read more in <a href="#">Output modes</a>.</p>
+        </div>
+      </div>
+      <nav class="toc" aria-label="Sample table of contents">
+        <div class="head">On this page</div>
+        <ul>
+          <li>Overview</li>
+          <li aria-current="true">Install into your agent apps</li>
+          <li class="sub">Session hook</li>
+          <li>Change the theme</li>
+        </ul>
+      </nav>
+    </div>
+  </template>
+    <section class="page dark" aria-label="Dark mode"></section>
+    <section class="page light" aria-label="Light mode"></section>
+  </div>
+
+  <h2 class="part">Colors</h2>
+  <p class="note">Each card shows dark mode on the left and light mode on the right. Verdigris is the only accent. Brass and oxide show only where they mean something.</p>
+  <div class="swatches">
+    <div class="sw"><div class="chips"><i style="background:#15212a"></i><i style="background:#f7f9f7"></i></div><div class="meta"><b>Ink</b>Page background<br><span>#15212a / #f7f9f7</span></div></div>
+    <div class="sw"><div class="chips"><i style="background:#cfdad8"></i><i style="background:#23333d"></i></div><div class="meta"><b>Text</b>Body text<br><span>#cfdad8 / #23333d</span></div></div>
+    <div class="sw"><div class="chips"><i style="background:#5fc2b0"></i><i style="background:#1c7468"></i></div><div class="meta"><b>Verdigris</b>Links, focus, where you are<br><span>#5fc2b0 / #1c7468</span></div></div>
+    <div class="sw"><div class="chips"><i style="background:#c4a7e7"></i><i style="background:#6e5594"></i></div><div class="meta"><b>Iris</b>Tip<br><span>#c4a7e7 / #6e5594</span></div></div>
+    <div class="sw"><div class="chips"><i style="background:#e3b341"></i><i style="background:#8a6208"></i></div><div class="meta"><b>Brass</b>Caution<br><span>#e3b341 / #8a6208</span></div></div>
+    <div class="sw"><div class="chips"><i style="background:#e8875f"></i><i style="background:#a8431c"></i></div><div class="meta"><b>Oxide</b>Danger, deleted lines<br><span>#e8875f / #a8431c</span></div></div>
+  </div>
+
+  <h2 class="part">Type</h2>
+  <div class="type">
+    <div><div class="role"><b>Headings</b>Bricolage Grotesque, a sans with character</div><div class="x1">Install into your agent apps</div></div>
+    <div><div class="role"><b>Body</b>Atkinson Hyperlegible Next, 17px, line-height 1.7</div><div class="x2">It keeps letters such as l, I and 1 apart, so commands and flags read right the first time.</div></div>
+    <div><div class="role"><b>Code</b>Monaspace Neon, with texture healing</div><div class="x3">rgit agent install --project</div></div>
+  </div>
+
+  <h2 class="part">Rules it follows</h2>
+  <ul class="rules">
+    <li>Body lines stay between 45 and 80 characters.</li>
+    <li>Body text is 16px or more, with a line-height of 1.5 or more.</li>
+    <li>One accent color, 1px lines and almost no shadows.</li>
+    <li>Code colors follow the dark and light switch.</li>
+    <li>Callouts get a thin side line and a faint tint, not a full box.</li>
+    <li>Text passes WCAG AA contrast in both modes.</li>
+    <li>No all-caps labels. Less motion when the system asks for it.</li>
+  </ul>
+</main>
+<script>
+  const mock = document.getElementById('mock');
+  document.querySelectorAll('.page').forEach((page) => page.append(mock.content.cloneNode(true)));
+</script>
+</body>
+</html>

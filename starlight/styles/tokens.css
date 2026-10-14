@@ -1,0 +1,145 @@
+/* Theme rules sit in a layer after Starlight, so they win without specificity tricks
+   and any unlayered site CSS still wins over the theme. */
+@layer starlight, rslib;
+
+@layer rslib {
+  :root,
+  ::backdrop {
+    /* Ink: a blue-green slate, never a neutral near-black. */
+    --sl-color-white: #e8f0ee;
+    --sl-color-gray-1: #cfdad8;
+    --sl-color-gray-2: #adbcbc;
+    --sl-color-gray-3: #81949a;
+    --sl-color-gray-4: #576b72;
+    --sl-color-gray-5: #2f414b;
+    --sl-color-gray-6: #1d2c35;
+    --sl-color-black: #15212a;
+
+    --sl-color-accent-low: #123b37;
+    --sl-color-accent: #5fc2b0;
+    --sl-color-accent-high: #b4eadf;
+
+    /* Starlight maps asides and badges to these: note, tip, caution, danger, success. */
+    --sl-color-blue-low: #123b37;
+    --sl-color-blue: #5fc2b0;
+    --sl-color-blue-high: #b4eadf;
+    --sl-color-purple-low: #2e2a46;
+    --sl-color-purple: #c4a7e7;
+    --sl-color-purple-high: #e4d7f5;
+    --sl-color-orange-low: #3a2f14;
+    --sl-color-orange: #e3b341;
+    --sl-color-orange-high: #f4dc9c;
+    --sl-color-red-low: #3d2219;
+    --sl-color-red: #e8875f;
+    --sl-color-red-high: #f6c8b4;
+    --sl-color-green-low: #183a2a;
+    --sl-color-green: #8fcf8a;
+    --sl-color-green-high: #cdeccb;
+
+    --sl-color-text: var(--sl-color-gray-1);
+    --sl-color-text-accent: var(--sl-color-accent);
+    --sl-color-text-invert: var(--sl-color-black);
+    --sl-color-bg: var(--sl-color-black);
+    --sl-color-bg-nav: var(--sl-color-black);
+    --sl-color-bg-sidebar: var(--sl-color-black);
+    --sl-color-bg-inline-code: var(--sl-color-gray-6);
+    --sl-color-bg-accent: var(--sl-color-accent);
+    --sl-color-hairline-light: var(--sl-color-gray-5);
+    --sl-color-hairline: #24343e;
+    --sl-color-hairline-shade: #0f181f;
+    --sl-color-backdrop-overlay: rgb(10 18 24 / 0.7);
+
+    --rs-rule: var(--sl-color-hairline);
+    --rs-lane: var(--sl-color-gray-5);
+    --rs-node: var(--sl-color-gray-3);
+    --rs-code-bg: #111b23;
+    --rs-code-bar: #18252e;
+
+    --rs-font-display: 'Bricolage Grotesque Variable', var(--sl-font-system);
+    --sl-font: 'Atkinson Hyperlegible Next Variable', var(--sl-font-system);
+    --sl-font-mono: 'Monaspace Neon', var(--sl-font-system-mono);
+
+    --sl-text-body: 1.0625rem;
+    --sl-text-body-sm: 0.875rem;
+    --sl-text-code: 0.875rem;
+    --sl-text-code-sm: 0.8125rem;
+    --rs-code-size: 0.84rem;
+    --sl-line-height: 1.7;
+    --sl-line-height-headings: 1.25;
+
+    --sl-text-h1: 2.25rem;
+    --sl-text-h2: 1.5rem;
+    --sl-text-h3: 1.25rem;
+    --sl-text-h4: 1.125rem;
+    --sl-text-h5: 1rem;
+    --sl-text-h6: 0.9375rem;
+
+    --sl-nav-height: 3.5rem;
+    --sl-sidebar-width: 17rem;
+    --sl-content-width: 46rem;
+
+    --rs-lane-gutter: 1.25rem;
+    --rs-radius: 0.375rem;
+  }
+
+  :root[data-theme='light'],
+  [data-theme='light'] ::backdrop {
+    /* Patina paper: a cool grey with a trace of green. */
+    --sl-color-white: #13212a;
+    --sl-color-gray-1: #23333d;
+    --sl-color-gray-2: #3b4c56;
+    --sl-color-gray-3: #5a6b72;
+    --sl-color-gray-4: #8a999d;
+    --sl-color-gray-5: #c7d1d0;
+    --sl-color-gray-6: #e2e8e6;
+    --sl-color-gray-7: #edf1ef;
+    --sl-color-black: #f7f9f7;
+
+    --sl-color-accent-low: #d3ebe5;
+    --sl-color-accent: #1c7468;
+    --sl-color-accent-high: #0e3f38;
+
+    --sl-color-blue-low: #d3ebe5;
+    --sl-color-blue: #1c7468;
+    --sl-color-blue-high: #0e3f38;
+    --sl-color-purple-low: #ebe3f4;
+    --sl-color-purple: #6e5594;
+    --sl-color-purple-high: #3f2d5a;
+    --sl-color-orange-low: #f6ebcd;
+    --sl-color-orange: #8a6208;
+    --sl-color-orange-high: #4d3703;
+    --sl-color-red-low: #f7e0d6;
+    --sl-color-red: #a8431c;
+    --sl-color-red-high: #5c220c;
+    --sl-color-green-low: #dcefd9;
+    --sl-color-green: #2f7a35;
+    --sl-color-green-high: #17441b;
+
+    --sl-color-text: var(--sl-color-gray-1);
+    --sl-color-text-accent: var(--sl-color-accent);
+    --sl-color-text-invert: var(--sl-color-black);
+    --sl-color-bg-nav: var(--sl-color-black);
+    --sl-color-bg-sidebar: var(--sl-color-black);
+    --sl-color-bg-inline-code: var(--sl-color-gray-6);
+    --sl-color-hairline-light: var(--sl-color-gray-5);
+    --sl-color-hairline: #dde4e2;
+    --sl-color-hairline-shade: var(--sl-color-gray-5);
+    --sl-color-backdrop-overlay: rgb(60 76 82 / 0.5);
+
+    --rs-lane: var(--sl-color-gray-5);
+    --rs-node: var(--sl-color-gray-4);
+    --rs-code-bg: #eef2f0;
+    --rs-code-bar: #e4eae8;
+  }
+
+  @media (min-width: 50em) {
+    :root {
+      --sl-nav-height: 3.75rem;
+      --sl-text-h1: 2.75rem;
+      --sl-text-h2: 1.75rem;
+      --sl-text-h3: 1.375rem;
+      --sl-text-h4: 1.125rem;
+      --rs-lane-gutter: 1.75rem;
+    }
+  }
+}

@@ -1,0 +1,115 @@
+/* The lane: page content hangs off one rail like `git log --graph`.
+   Headings are commits on it; the TOC repeats the rail and fills the node you are on. */
+@layer rslib {
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content {
+    position: relative;
+    padding-inline-start: var(--rs-lane-gutter);
+  }
+
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content::before {
+    content: '';
+    position: absolute;
+    inset-block: 0.5rem 0;
+    inset-inline-start: 0.3125rem;
+    border-inline-start: 1px solid var(--rs-lane);
+  }
+
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content :is(.level-h2, .level-h3) {
+    position: relative;
+  }
+
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content :is(.level-h2, .level-h3)::before {
+    content: '';
+    position: absolute;
+    box-sizing: border-box;
+    top: calc((var(--sl-line-height-headings) * 1em - var(--rs-node-size)) / 2);
+    inset-inline-start: calc(0.3125rem + 0.5px - var(--rs-node-size) / 2 - var(--rs-lane-gutter));
+    width: var(--rs-node-size);
+    height: var(--rs-node-size);
+    border-radius: 50%;
+    border: 1.5px solid var(--rs-node);
+    background-color: var(--sl-color-bg);
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content .level-h2 {
+    --rs-node-size: 0.6875rem;
+  }
+
+  /* Pinned to rem so an h3 node is a step smaller than an h2 node, not em-scaled. */
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content .level-h3 {
+    --rs-node-size: 0.4375rem;
+  }
+
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content .level-h3::before {
+    background-color: var(--rs-node);
+    border-color: var(--rs-node);
+  }
+
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content :is(.level-h2, .level-h3):hover::before,
+  :root:not([data-has-hero]) .main-pane .sl-markdown-content :is(.level-h2, .level-h3):has(> :target)::before {
+    border-color: var(--sl-color-accent);
+    background-color: var(--sl-color-accent);
+  }
+
+  starlight-toc nav > ul,
+  mobile-starlight-toc nav details > ul {
+    position: relative;
+  }
+
+  .right-sidebar-panel starlight-toc ul ul {
+    margin-inline-start: 0;
+  }
+
+  .right-sidebar-panel starlight-toc nav > ul {
+    border-inline-start: 1px solid var(--rs-lane);
+    margin-inline-start: 0.3125rem;
+  }
+
+  .right-sidebar-panel starlight-toc a {
+    position: relative;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-sm);
+    border-radius: 0;
+    padding-inline-start: calc(0.875rem + 0.75rem * var(--depth, 0));
+  }
+
+  .right-sidebar-panel starlight-toc a:hover {
+    color: var(--sl-color-white);
+  }
+
+  .right-sidebar-panel starlight-toc a::before {
+    content: '';
+    position: absolute;
+    box-sizing: border-box;
+    top: calc(0.25rem + (1.25em - 0.5rem) / 2);
+    inset-inline-start: calc(-0.25rem - 0.5px);
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--rs-node);
+    background-color: var(--sl-color-bg);
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s;
+  }
+
+  .right-sidebar-panel starlight-toc a[aria-current='true'] {
+    color: var(--sl-color-white);
+  }
+
+  .right-sidebar-panel starlight-toc a[aria-current='true']::before {
+    opacity: 1;
+    border-color: var(--sl-color-accent);
+    background-color: var(--sl-color-accent);
+  }
+
+  @media print {
+    :root:not([data-has-hero]) .main-pane .sl-markdown-content {
+      padding-inline-start: 0;
+    }
+    :root:not([data-has-hero]) .main-pane .sl-markdown-content::before,
+    :root:not([data-has-hero]) .main-pane .sl-markdown-content :is(.level-h2, .level-h3)::before {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "starlight-theme-rslib",
+  "version": "0.0.1",
+  "description": "The Starlight theme for rslib project docs",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./components/*": "./components/*",
+    "./styles/*": "./styles/*"
+  },
+  "files": [
+    "components",
+    "styles",
+    "index.ts"
+  ],
+  "keywords": [
+    "starlight",
+    "starlight-theme",
+    "withastro"
+  ],
+  "peerDependencies": {
+    "@astrojs/starlight": ">=0.42.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource/monaspace-neon": "^5.3.0"
+  }
+}

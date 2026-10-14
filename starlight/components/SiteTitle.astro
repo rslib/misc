@@ -1,0 +1,35 @@
+---
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="rs-title">
+  <span class="rs-title-org">rslib</span><span class="rs-title-sep" aria-hidden="true">/</span><span
+    class="rs-title-project">{siteTitle}</span
+  >
+</a>
+
+<style>
+  .rs-title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.05em;
+    font-family: var(--rs-font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .rs-title-org {
+    font-weight: 400;
+    color: var(--sl-color-gray-3);
+  }
+  .rs-title-sep {
+    color: var(--sl-color-accent);
+    padding-inline: 0.1em;
+  }
+  .rs-title:hover .rs-title-org {
+    color: var(--sl-color-gray-2);
+  }
+</style>

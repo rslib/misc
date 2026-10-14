@@ -1,0 +1,60 @@
+---
+title: Git for people and their agents
+description: rgit is a magit-style TUI, a git-compatible CLI and an MCP server.
+template: splash
+hero:
+  tagline: One binary gives you a TUI, a CLI that prints what git prints and structured output for coding agents.
+  actions:
+    - text: Install rgit
+      link: /getting-started/
+      variant: primary
+    - text: Use rgit from an agent
+      link: /guides/agent-integration/
+      variant: secondary
+---
+
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="In your shell">
+
+```console
+$ rgit status
+On branch main
+Changes not staged for commit:
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+</TabItem>
+<TabItem label="Under an agent">
+
+```console
+$ rgit status
+branch: main
+changes: "0 staged, 1 unstaged, 0 untracked"
+files[1]{path,staged,unstaged}:
+  README.md,"-",M
+help[2]:
+  Run `rgit diff` to see unstaged changes
+  Run `rgit stage <path>` to stage a file
+```
+
+</TabItem>
+</Tabs>
+
+<CardGrid>
+  <Card title="Type rgit where you type git">
+    The commands and flags are git's. Plain `status`, `diff` and `log` print the same text.
+  </Card>
+  <Card title="Agents get TOON">
+    Short structured lines that end with the next useful commands.
+  </Card>
+  <Card title="Open the TUI">
+    Run `rgit` with no arguments for a magit-style view of the repository.
+  </Card>
+  <Card title="Undo anything">
+    Every operation goes into the op-log, so `rgit undo` can step back.
+  </Card>
+</CardGrid>
